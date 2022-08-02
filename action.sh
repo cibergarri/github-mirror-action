@@ -8,6 +8,7 @@ if [ -z "${REMOTE}" ]; then
 fi
 
 git clone --bare "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" . || exit 1
+git config --global --add safe.directory /github/workspace
 git remote add --mirror=fetch mirror "${REMOTE}" || exit 1
 git fetch mirror +refs/heads/*:refs/remotes/origin/* || exit 1
 git push --force --mirror --prune origin || exit 1
