@@ -27,6 +27,7 @@ git status
 git remote add --mirror=fetch mirror "${REMOTE}" || exit 1
 
 if [ -z "${ORIGIN_BRANCH}" ]; then
+  echo "mirroring all branches"
   ls -la
   git status
   git fetch mirror +refs/heads/*:refs/remotes/origin/* || exit 1
@@ -35,12 +36,13 @@ if [ -z "${ORIGIN_BRANCH}" ]; then
   git push --force --mirror --prune origin || exit 1
   ls -la
   git status
+  exit 1
 fi
 
+echo "mirroring ${ORIGIN_BRANCH} to ${DESTINATION_BRANCH}"
 ls -la
 git status
-git fetch mirror +refs/heads/*:refs/remotes/origin/* || exit 1
-git fetch mirror ${ORIGIN_BRANCH} ${DESTINATION_BRANCH}
+git fetch mirror ${ORIGIN_BRANCH} ${DESTINATION_BRANCH} || exit 1
 
 ls -la
 git status
