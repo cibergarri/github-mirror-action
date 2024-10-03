@@ -30,21 +30,20 @@ if [ -z "${ORIGIN_BRANCH}" ]; then
   ls -la
   git status
   git fetch mirror +refs/heads/*:refs/remotes/origin/* || exit 1
-  git fetch mirror ${ORIGIN_BRANCH} ${DESTINATION_BRANCH}
-
   ls -la
   git status
-  git push --force --prune origin ${DESTINATION_BRANCH} || exit 1
-  exit 1
+  git push --force --mirror --prune origin || exit 1
+  ls -la
+  git status
 fi
-
 
 ls -la
 git status
 git fetch mirror +refs/heads/*:refs/remotes/origin/* || exit 1
+git fetch mirror ${ORIGIN_BRANCH} ${DESTINATION_BRANCH}
+
 ls -la
 git status
-git push --force --mirror --prune origin || exit 1
-ls -la
-git status
+git push --force --prune origin ${DESTINATION_BRANCH} || exit 1
+exit 1
 
