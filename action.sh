@@ -26,11 +26,11 @@ if [ -z "${ORIGIN_BRANCH}" ]; then
   echo "mirroring all branches"
   git fetch mirror +refs/heads/*:refs/remotes/origin/* || exit 1
   git push --force --mirror --prune origin || exit 1
-  exit 1
+  exit 0
 fi
 
 echo "mirroring ${ORIGIN_BRANCH} to ${DESTINATION_BRANCH}"
 git fetch mirror ${ORIGIN_BRANCH} ${DESTINATION_BRANCH} || exit 1
 git push --force --prune origin ${DESTINATION_BRANCH} || exit 1
-exit 1
+exit 0
 
