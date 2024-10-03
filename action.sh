@@ -31,6 +31,6 @@ fi
 
 echo "mirroring ${ORIGIN_BRANCH} to ${DESTINATION_BRANCH}"
 git fetch mirror ${ORIGIN_BRANCH} ${DESTINATION_BRANCH} || exit 1
-git push --force --prune origin ${DESTINATION_BRANCH} || exit 1
+git push --force --mirror --prune origin ${DESTINATION_BRANCH} || exit 1
 exit 0
 
