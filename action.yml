@@ -1,0 +1,29 @@
+name: 'Mirror GitHub Repository'
+branding:
+  icon: 'download-cloud'
+  color: 'white'
+description: 'Mirror a repository to GitHub'
+inputs:
+  origin:
+    description: 'URL of remote git repository'
+    required: true
+  GITHUB_TOKEN:
+    description: 'set this to the value of secrets.GITHUB_TOKEN'
+    required: true
+  origin-branch:
+    description: 'Origin Branch to mirror'
+    required: false
+    default: ''
+  destination-branch:
+    description: 'Destination Branch'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.origin }}
+    - ${{ inputs.origin-branch }}
+    - ${{ inputs.destination-branch }}
+  env:
+    GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
